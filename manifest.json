@@ -1,0 +1,16 @@
+{
+    "name": "Notes App Arshila",
+    "short_name": "Notes",
+    "description": "Aplikasi catatan sederhana",
+    "start_url": "./index.html",
+    "display": "standalone",
+    "background_color": "#EAF4FF",
+    "theme_color": "#5B8DEF",
+    "icons": [
+        {
+            "src": "icon.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        }
+    ]
+}

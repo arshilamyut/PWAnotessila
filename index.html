@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <meta name="theme-color"
+          content="#5B8DEF">
+
+    <title>Notes App Arshila</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="style.css">
+
+    <link rel="manifest"
+          href="manifest.json">
+
+</head>
+
+<body>
+
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+
+    <div class="container">
+
+        <header class="app-header">
+            <div class="app-icon">🩵</div>
+            <h1>Notes App Cila</h1>
+            <p class="subtitle" id="subtitle">Belum ada catatan</p>
+        </header>
+
+        <div class="toolbar">
+
+            <div class="search-bar">
+                <svg class="icon-search" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/>
+                    <path d="M20 20L16.5 16.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+                <input
+                    type="text"
+                    id="pencarian"
+                    placeholder="Cari catatan..."
+                    oninput="tampilkanCatatan()">
+            </div>
+
+            <button type="button" class="btn-icon-bulat" id="btnEkspor" title="Ekspor semua catatan" onclick="eksporSemua()">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 4V15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M7 11L12 16L17 11" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M5 19H19" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+            </button>
+
+        </div>
+
+        <h2>Catatan Kamu</h2>
+
+        <div id="daftarCatatan"></div>
+
+    </div>
+
+    <button type="button" class="fab" id="fab" onclick="bukaForm()" title="Tulis catatan baru">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 5V19" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+            <path d="M5 12H19" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+        </svg>
+    </button>
+
+    <div class="overlay" id="overlay" onclick="tutupForm(event)">
+
+        <div class="sheet" onclick="event.stopPropagation()">
+
+            <div class="sheet-handle"></div>
+
+            <div class="sheet-header">
+                <h3 id="judulSheet">Catatan Baru</h3>
+                <button type="button" class="btn-tutup" onclick="tutupForm()">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M6 6L18 18" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+                        <path d="M18 6L6 18" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+                    </svg>
+                </button>
+            </div>
+
+            <input
+                type="text"
+                id="judul"
+                placeholder="Judul catatan"
+                maxlength="60">
+
+            <textarea
+                id="isi"
+                placeholder="Tulis catatan..."
+                rows="5"
+                maxlength="1000"
+                oninput="updateHitungKarakter()">
+            </textarea>
+
+            <span class="hitung-karakter" id="hitungKarakter">0 / 1000 karakter</span>
+
+            <div class="warna-picker">
+                <span class="warna-label">Label warna</span>
+                <div class="warna-opsi" id="warnaOpsi">
+                    <button type="button" class="swatch selected" data-warna="biru" style="background:#5B8DEF" onclick="pilihWarna('biru')"></button>
+                    <button type="button" class="swatch" data-warna="pink" style="background:#FF8FC0" onclick="pilihWarna('pink')"></button>
+                    <button type="button" class="swatch" data-warna="lavender" style="background:#B79CFF" onclick="pilihWarna('lavender')"></button>
+                    <button type="button" class="swatch" data-warna="mint" style="background:#3FC98A" onclick="pilihWarna('mint')"></button>
+                    <button type="button" class="swatch" data-warna="kuning" style="background:#F2B705" onclick="pilihWarna('kuning')"></button>
+                </div>
+            </div>
+
+            <button id="btnSimpan" class="btn-simpan" onclick="simpanCatatan()">
+                Simpan Catatan
+            </button>
+
+        </div>
+
+    </div>
+
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script src="app.js"></script>
+</body>
+</html>

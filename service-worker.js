@@ -1,103 +1,44 @@
-const CACHE_NAME = "notes-app-v7";
-
+const CACHE_NAME = "notes-app-v8";
 
 const FILES_TO_CACHE = [
-
     "./",
-
     "./index.html",
-
     "./style.css",
-
     "./app.js",
-
     "./manifest.json",
-    
-   "./logonotes.png"
+    "./logonotes.png"
 ];
 
+self.addEventListener("install", function(event) {
+    self.skipWaiting();
 
-self.addEventListener(
-    "install",
-    function(event) {
+    event.waitUntil(
+        caches.open(CACHE_NAME).then(function(cache) {
+            return cache.addAll(FILES_TO_CACHE);
+        })
+    );
+});
 
-        // Langsung aktifkan versi baru tanpa menunggu tab lama ditutup.
-        self.skipWaiting();
-
-        event.waitUntil(
-
-            caches.open(CACHE_NAME)
-
-                .then(function(cache) {
-
-                    return cache.addAll(
-                        FILES_TO_CACHE
-                    );
-
-                })
-
-        );
-
-    }
-);
-
-
-self.addEventListener(
-    "activate",
-    function(event) {
-
-        event.waitUntil(
-
-            caches.keys().then(function(keys) {
-
-                return Promise.all(
-
-                    keys.map(function(key) {
-
-                        if (key !== CACHE_NAME) {
-
-                            return caches.delete(key);
-
-                        }
-
-                    })
-
-                );
-
-            }).then(function() {
-
-                // Ambil alih kontrol tab yang sedang terbuka saat ini juga.
-                return self.clients.claim();
-
-            })
-
-        );
-
-    }
-);
-
-
-self.addEventListener(
-    "fetch",
-    function(event) {
-
-        event.respondWith(
-
-            caches.match(event.request)
-
-                .then(function(response) {
-
-                    if (response) {
-
-                        return response;
-
+self.addEventListener("activate", function(event) {
+    event.waitUntil(
+        caches.keys().then(function(keys) {
+            return Promise.all(
+                keys.map(function(key) {
+                    if (key !== CACHE_NAME) {
+                        return caches.delete(key);
                     }
-
-                    return fetch(event.request);
-
                 })
+            );
+        }).then(function() {
+            return self.clients.claim();
+        })
+    );
+});
 
-        );
-
-    }
-);
+self.addEventListener("fetch", function(event) {
+    event.respondWith(
+        caches.match(event.request).then(function(response) {
+            return response || fetch(event.request);
+        })
+    );
+});

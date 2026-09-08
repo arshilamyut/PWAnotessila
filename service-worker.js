@@ -1,4 +1,4 @@
-const CACHE_NAME = "notes-app-v5";
+const CACHE_NAME = "notes-app-v7";
 
 
 const FILES_TO_CACHE = [
@@ -12,9 +12,8 @@ const FILES_TO_CACHE = [
     "./app.js",
 
     "./manifest.json",
-
-    "./icon.png"
-
+    
+   "./logonotes.png"
 ];
 
 
